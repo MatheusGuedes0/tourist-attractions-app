@@ -1,4 +1,4 @@
-package utfpr.edu.br.tourist_attractions_app.database
+package utfpr.edu.br.tourist_attractions_app.data
 
 import android.content.ContentValues
 import android.content.Context

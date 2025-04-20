@@ -1,10 +1,8 @@
 package utfpr.edu.br.tourist_attractions_app
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import utfpr.edu.br.tourist_attractions_app.database.DatabaseHandler
-import utfpr.edu.br.tourist_attractions_app.model.PontoTuristico
+import utfpr.edu.br.tourist_attractions_app.data.DatabaseHandler
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
