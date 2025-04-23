@@ -1,6 +1,8 @@
 package utfpr.edu.br.tourist_attractions_app
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import utfpr.edu.br.tourist_attractions_app.data.DatabaseHandler
 
@@ -48,5 +50,10 @@ class MainActivity : AppCompatActivity() {
     // val idParaExcluir = 6
     // db.delete(idParaExcluir)
     // Log.d("DELETE", "Ponto com ID $idParaExcluir deletado")
+    }
+
+    fun btTelaConfiguracaoOnClick(view: View) {
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
     }
 }
