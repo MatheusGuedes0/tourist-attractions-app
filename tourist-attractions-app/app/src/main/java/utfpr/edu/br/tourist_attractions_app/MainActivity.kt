@@ -56,4 +56,10 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
     }
+
+    fun btTelaCadastroOnClick(view: View) {
+        val intent = Intent(this, CadastroActivity::class.java)
+        startActivity(intent)
+    }
+
 }
