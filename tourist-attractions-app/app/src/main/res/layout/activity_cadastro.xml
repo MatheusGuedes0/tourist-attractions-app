@@ -34,6 +34,7 @@
             android:id="@+id/editTextNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:textColorHint="#616161"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,6 +53,7 @@
             android:id="@+id/editTextDescricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:textColorHint="#616161"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +72,8 @@
             android:id="@+id/editTextLatitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="numberDecimal|numberSigned"
+            android:textColor="#000000"
             android:textColorHint="#616161"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,7 +92,8 @@
             android:id="@+id/editTextLongitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="numberDecimal|numberSigned"
+            android:textColor="#000000"
             android:textColorHint="#616161"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,5 +131,5 @@
         app:cornerRadius="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
