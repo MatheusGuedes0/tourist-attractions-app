@@ -5,22 +5,29 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="24dp"/>
 
     <Button
+        android:id="@+id/btnTelaConfiguracao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tela Configuração"
-        android:gravity="center_horizontal"
-        android:onClick="btTelaConfiguracaoOnClick"/>
+        android:onClick="btTelaConfiguracaoOnClick"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnTelaCadastro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tela Cadastro"
+        android:onClick="btTelaCadastroOnClick" />
 
 </LinearLayout>
