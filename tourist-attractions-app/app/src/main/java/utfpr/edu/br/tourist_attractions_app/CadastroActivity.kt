@@ -2,6 +2,7 @@ package utfpr.edu.br.tourist_attractions_app
 
 import android.Manifest
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -20,6 +21,7 @@ class CadastroActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCadastroBinding
     private var selectedImageUri: Uri? = null
+    private var pontoExistente: PontoTuristico? = null
 
     private val pickImage =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -47,14 +49,25 @@ class CadastroActivity : AppCompatActivity() {
         binding = ActivityCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 1. Verifica se foi passado um ponto para edição
+        pontoExistente = intent.getSerializableExtra("ponto") as? PontoTuristico
+        pontoExistente?.let {
+            preencherCampos(it)
+            binding.btnSalvar.text = "Atualizar"
+        }
+
+        // 2. Configura botão de imagem
         binding.btnSelecionarImagem.setOnClickListener {
             checkGalleryPermissionAndPick()
         }
 
+        // 3. Salva ou atualiza, dependendo do modo
         binding.btnSalvar.setOnClickListener {
-            salvarCadastro()
+            if (pontoExistente != null) atualizarCadastro()
+            else salvarCadastro()
         }
     }
+
 
     private fun checkGalleryPermissionAndPick() {
         val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
@@ -133,4 +146,45 @@ class CadastroActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun preencherCampos(ponto: PontoTuristico) {
+        binding.editTextNome.setText(ponto.nome)
+        binding.editTextDescricao.setText(ponto.descricao)
+        binding.editTextLatitude.setText(ponto.latitude.toString())
+        binding.editTextLongitude.setText(ponto.longitude.toString())
+
+        selectedImageUri = Uri.parse(ponto.imagemUri)
+        binding.imageViewFoto.setImageURI(selectedImageUri)
+
+        binding.btnSalvar.text = "Atualizar"
+    }
+    private fun atualizarCadastro() {
+        val nome = binding.editTextNome.text.toString().trim()
+        val descricao = binding.editTextDescricao.text.toString().trim()
+        val latitude = binding.editTextLatitude.text.toString().trim().toDoubleOrNull()
+        val longitude = binding.editTextLongitude.text.toString().trim().toDoubleOrNull()
+
+        if (nome.length < 3 || descricao.isBlank() || latitude == null || longitude == null || selectedImageUri == null) {
+            Toast.makeText(this, "Preencha todos os campos corretamente.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val pontoAtualizado = PontoTuristico(
+            id = pontoExistente!!.id,
+            nome = nome,
+            descricao = descricao,
+            latitude = latitude,
+            longitude = longitude,
+            imagemUri = selectedImageUri.toString()
+        )
+
+        DatabaseHandler(this).update(pontoAtualizado)
+        Toast.makeText(this, "Ponto atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+        finish()
+    }
+
+    fun btEditarOnClick(view: View, ponto: PontoTuristico) {
+        val intent = Intent(view.context, CadastroActivity::class.java)
+        intent.putExtra("ponto", ponto) // o ponto precisa ser Serializable
+        view.context.startActivity(intent)
+    }
 }
