@@ -1,5 +1,7 @@
 package utfpr.edu.br.tourist_attractions_app.model
 
+import java.io.Serializable
+
 data class PontoTuristico(
     val id: Int = 0,
     val nome: String,
@@ -7,4 +9,4 @@ data class PontoTuristico(
     val latitude: Double,
     val longitude: Double,
     val imagemUri: String
-)
+):Serializable

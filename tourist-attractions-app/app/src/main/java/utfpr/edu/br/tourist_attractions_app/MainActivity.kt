@@ -62,4 +62,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun btRecyclerViewOnClick(view: View){
+        val intent = Intent(this,RecyclerViewActivity::class.java)
+        startActivity((intent))
+    }
+
 }
