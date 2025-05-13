@@ -3,7 +3,9 @@ package utfpr.edu.br.tourist_attractions_app.utils
 
 import android.content.Context
 import android.content.Intent
+import android.location.Geocoder
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import utfpr.edu.br.tourist_attractions_app.CadastroActivity
 import utfpr.edu.br.tourist_attractions_app.R
 import utfpr.edu.br.tourist_attractions_app.data.DatabaseHandler
 import utfpr.edu.br.tourist_attractions_app.model.PontoTuristico
+import java.util.Locale
 
 class PontoTuristicoAdapter(
     private var lista: MutableList<PontoTuristico>,
@@ -44,7 +47,9 @@ class PontoTuristicoAdapter(
         val ponto = lista[position]
 
         holder.titulo.text = ponto.nome
-        holder.coords.text = "Lat: ${ponto.latitude}, Lon: ${ponto.longitude}"
+        val endereco = getEnderecoSimples(holder.itemView.context, ponto.latitude, ponto.longitude)
+        holder.coords.text = endereco
+
         holder.descricao.text = ponto.descricao
 
         if (!ponto.imagemUri.isNullOrEmpty()) {
@@ -74,6 +79,26 @@ class PontoTuristicoAdapter(
         lista.clear()
         lista.addAll(novaLista)
         notifyDataSetChanged()
+    }
+
+
+    fun getEnderecoSimples(context: Context, latitude: Double, longitude: Double): String {
+        return try {
+            val geocoder = Geocoder(context, Locale.getDefault())
+            val lista = geocoder.getFromLocation(latitude, longitude, 1)
+            if (!lista.isNullOrEmpty()) {
+                val endereco = lista[0]
+                val logradouro = endereco.thoroughfare ?: ""
+                val cidade = endereco.locality ?: ""
+                val estado = endereco.adminArea ?: ""
+                "$logradouro, $cidade - $estado"
+            } else {
+                "Endereço não encontrado"
+            }
+        } catch (e: Exception) {
+            Log.e("Geocoder", "Erro ao obter endereço: ${e.message}")
+            "Erro ao obter endereço"
+        }
     }
 
 
