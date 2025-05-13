@@ -10,6 +10,21 @@
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
 
+    <string-array name="tipos_mapa">
+        <item>Normal</item>
+        <item>Satélite</item>
+        <item>Híbrido</item>
+        <item>Terreno</item>
+    </string-array>
+
+    <string-array name="tipos_mapa_values">
+        <item>normal</item>
+        <item>satellite</item>
+        <item>hybrid</item>
+        <item>terrain</item>
+    </string-array>
+
+
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>

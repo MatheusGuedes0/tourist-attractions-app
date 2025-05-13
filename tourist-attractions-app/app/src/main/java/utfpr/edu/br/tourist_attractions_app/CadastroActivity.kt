@@ -16,6 +16,8 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import utfpr.edu.br.tourist_attractions_app.data.DatabaseHandler
 import utfpr.edu.br.tourist_attractions_app.databinding.ActivityCadastroBinding
 import utfpr.edu.br.tourist_attractions_app.model.PontoTuristico
+import utfpr.edu.br.tourist_attractions_app.utils.GeocodingHelper
+import utfpr.edu.br.tourist_attractions_app.utils.hasLocationPermission
 
 class CadastroActivity : AppCompatActivity() {
 
@@ -48,6 +50,20 @@ class CadastroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Teste realizado por Jonathan para a busca de coordenadas
+
+        binding.btnBuscarCoordenadas.setOnClickListener {
+            if (hasLocationPermission()) {
+                buscarLocalizacaoAtual()
+            } else {
+                locationPermissionRequest.launch(arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ))
+            }
+        }
+
 
         // 1. Verifica se foi passado um ponto para edição
         pontoExistente = intent.getSerializableExtra("ponto") as? PontoTuristico
@@ -187,4 +203,55 @@ class CadastroActivity : AppCompatActivity() {
         intent.putExtra("ponto", ponto) // o ponto precisa ser Serializable
         view.context.startActivity(intent)
     }
+
+
+    //Mechido por cassol
+
+    // Adicione no início da classe:
+    private val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                buscarLocalizacaoAtual()
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                buscarLocalizacaoAtual()
+            }
+            else -> {
+                Toast.makeText(this, "Permissão de localização negada", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    // Novo metodo para buscar localização
+    private fun buscarLocalizacaoAtual() {
+        binding.btnBuscarCoordenadas.isEnabled = false
+        binding.btnBuscarCoordenadas.text = "Obtendo localização..."
+
+        GeocodingHelper().getCurrentLocation(
+            context = this,
+            onSuccess = { lat, lng ->
+                runOnUiThread {
+                    binding.editTextLatitude.setText(lat.toString())
+                    binding.editTextLongitude.setText(lng.toString())
+                    binding.btnBuscarCoordenadas.isEnabled = true
+                    binding.btnBuscarCoordenadas.text = "Buscar Novamente"
+                    Toast.makeText(this, "Localização obtida!", Toast.LENGTH_SHORT).show()
+                }
+            },
+            onError = { error ->
+                runOnUiThread {
+                    Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+                    binding.btnBuscarCoordenadas.isEnabled = true
+                    binding.btnBuscarCoordenadas.text = "Tentar Novamente"
+                }
+            }
+        )
+    }
+
+
+
+// Modifique o clique do botão:
+
 }
