@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.androidx.room)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.preference)
+    implementation(libs.play.services.maps)
     ksp(libs.androidx.room.compiler.ksp)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)

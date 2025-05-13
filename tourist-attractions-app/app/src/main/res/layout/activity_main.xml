@@ -1,45 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     tools:context=".MainActivity">
 
     <ImageButton
         android:id="@+id/btnTelaConfiguracao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="340dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Configuração"
         android:onClick="btTelaConfiguracaoOnClick"
         android:src="@drawable/ic_settings" />
 
-    <Button
-        android:id="@+id/btnTelaCadastro"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/containerBotoes"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="666dp"
-        android:onClick="btTelaCadastroOnClick"
-        android:text="Cadastrar Ponto Turístico" />
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
 
-    <Button
-        android:id="@+id/btnRecyclerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnTelaConfiguracao"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="266dp"
-        android:layout_marginTop="538dp"
-        android:onClick="btRecyclerViewOnClick"
-        android:text="Exibir" />
+        <Button
+            android:id="@+id/btnTelaCadastro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="btTelaCadastroOnClick"
+            android:text="Cadastrar Ponto Turístico"
+            android:layout_marginBottom="16dp" />
 
+        <Button
+            android:id="@+id/btnRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="btRecyclerViewOnClick"
+            android:text="Exibir Lista"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnAbrirMapa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="btnAbrirMapaOnClick"
+            android:text="Ver Mapa" />
+    </LinearLayout>
 </RelativeLayout>
