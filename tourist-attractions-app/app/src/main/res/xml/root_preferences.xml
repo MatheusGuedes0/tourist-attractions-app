@@ -1,35 +1,20 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <ListPreference
+        android:key="tipo_mapa"
+        android:title="Tipo de Mapa"
+        android:defaultValue="normal"
+        android:entries="@array/tipos_mapa"
+        android:entryValues="@array/tipos_mapa_values"
+        android:summary="Escolha o tipo de visualização do mapa" />
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
-    </PreferenceCategory>
+    <EditTextPreference
+        android:key="zoom_mapa"
+        android:title="Zoom Padrão"
+        android:dialogTitle="Informe o nível de zoom (ex: 15)"
+        android:defaultValue="15"
+        android:inputType="numberDecimal"
+        android:summary="Defina o nível de zoom ao abrir o mapa" />
 
 </PreferenceScreen>
